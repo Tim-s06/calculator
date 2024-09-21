@@ -1,0 +1,10 @@
+button {
+    height: 100px;
+    width: 100px;
+    background-color: darkgray;
+    font-size: 30px;
+    border-radius: 10px;
+}
+.operators {
+    background-color: gray;
+}
