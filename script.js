@@ -1,7 +1,9 @@
-let numberOne = 0;
-let numberTwo = 0;
+let numberOne = null;
+let numberTwo = null;
 let operator = "";
-let displayValue = 0;
+let displayValue = "0";
+let equalsClicked = false;
+let displayReset = false;
 function add(a,b) {
     return a+b;
 }
@@ -19,28 +21,71 @@ function divide(a,b) {
 }
 function operate(firstNum, secondNum, operator) {
     if(operator == "+") {
-        add(firstNum,secondNum);
+        display.textContent = add(firstNum,secondNum);
+        numberOne = add(firstNum,secondNum);
     }
     if(operator == "*") {
-        multiply(firstNum,secondNum);
+        display.textContent = multiply(firstNum,secondNum);
+        numberOne = multiply(firstNum,secondNum);
     }
     if(operator == "-") {
-        subtract(firstNum,secondNum);
+        display.textContent = subtract(firstNum,secondNum);
+        numberOne = subtract(firstNum,secondNum);
     }
     if(operator == "/") {
-        divide(firstNum, secondNum);
+        display.textContent = divide(firstNum, secondNum);
+        numberOne = divide(firstNum, secondNum);
     }
+    numberTwo = null;
+    equalsClicked = false;
+    displayReset = false;
+    operator = "";
 }
 let display = document.getElementById("display");
 display.textContent = displayValue;
+
 let buttons = document.getElementsByClassName("numbers");
 let buttonsArray = Array.from(buttons);
 
-buttonsArray.forEach((btn) => {
-    btn.addEventListener("click", () => {
-        let number = btn.id;
-        number = parseInt(number);
-        displayValue = number;
-        display.textContent = displayValue;
-    }); 
-});
+let operators = document.getElementsByClassName("operators");
+let operatorsArray = Array.from(operators);
+
+let equalButton = document.getElementById("equals");
+function onButtonClick() {
+    buttonsArray.forEach((btn) => {
+        btn.addEventListener("click", () => {
+            let number = btn.id;
+            if(displayValue === "0") {
+                displayValue = "";
+            }
+            if(operator == "") {
+                displayValue = displayValue + number;
+                numberOne = displayValue;
+                display.textContent = displayValue;
+            }
+            else {
+                if(numberOne == null) {
+                    numberOne = displayValue;   
+                } 
+                if(!displayReset) {
+                    displayValue = "";
+                    displayReset = true;
+                } 
+                displayValue = displayValue + number;
+                display.textContent = displayValue;
+                numberTwo = displayValue;
+            }
+        }); 
+    });
+    operatorsArray.forEach((btn) => {
+        btn.addEventListener("click", () => {
+            let op = btn.id;
+            operator = op;
+        });
+    });
+    equalButton.addEventListener("click", () => {
+        equalsClicked = true;
+        operate(parseInt(numberOne), parseInt(numberTwo), operator);
+    });
+}
+onButtonClick();

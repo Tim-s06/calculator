@@ -5,7 +5,7 @@ button {
     font-size: 30px;
     border-radius: 10px;
 }
-.operators {
+.operators, .equals, .clear{
     background-color: gray;
 }
 .container {
