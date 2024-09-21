@@ -51,6 +51,8 @@ let operators = document.getElementsByClassName("operators");
 let operatorsArray = Array.from(operators);
 
 let equalButton = document.getElementById("equals");
+let clearButton = document.getElementById("clear");
+
 function onButtonClick() {
     buttonsArray.forEach((btn) => {
         btn.addEventListener("click", () => {
@@ -84,8 +86,19 @@ function onButtonClick() {
         });
     });
     equalButton.addEventListener("click", () => {
-        equalsClicked = true;
-        operate(parseInt(numberOne), parseInt(numberTwo), operator);
+        if(numberOne != null && numberTwo != null && operator != "") {
+            equalsClicked = true;
+            operate(parseFloat(numberOne), parseFloat(numberTwo), operator);
+        }
+    });
+    clearButton.addEventListener("click", () => {
+        numberOne = null;
+        numberTwo = null;
+        operator = "";
+        displayValue = "0";
+        equalsClicked = false;
+        displayReset = false;
+        display.textContent = "0";
     });
 }
 onButtonClick();
