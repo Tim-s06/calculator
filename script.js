@@ -1,6 +1,7 @@
 let numberOne = 0;
 let numberTwo = 0;
 let operator = "";
+let displayValue = 0;
 function add(a,b) {
     return a+b;
 }
@@ -30,3 +31,16 @@ function operate(firstNum, secondNum, operator) {
         divide(firstNum, secondNum);
     }
 }
+let display = document.getElementById("display");
+display.textContent = displayValue;
+let buttons = document.getElementsByClassName("numbers");
+let buttonsArray = Array.from(buttons);
+
+buttonsArray.forEach((btn) => {
+    btn.addEventListener("click", () => {
+        let number = btn.id;
+        number = parseInt(number);
+        displayValue = number;
+        display.textContent = displayValue;
+    }); 
+});
