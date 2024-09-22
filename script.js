@@ -114,5 +114,12 @@ function onButtonClick() {
             dotClicked = true;
         }
     });
+    backButton.addEventListener("click", () => {
+        displayValue = displayValue.slice(0, displayValue.length - 1);
+        if(displayValue == "") {
+            displayValue = "0";
+        }
+        display.textContent = displayValue;
+    });
 }
 onButtonClick();
