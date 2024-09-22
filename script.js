@@ -5,6 +5,7 @@ let displayValue = "0";
 let equalsClicked = false;
 let displayReset = false;
 let dotClicked = false;
+let operatorJustClicked = false;
 function add(a,b) {
     return a+b;
 }
@@ -20,21 +21,25 @@ function divide(a,b) {
     }
     return a/b;
 }
-function operate(firstNum, secondNum, operator) {
-    if(operator == "+") {
+function operate(firstNum, secondNum, op) {
+    if(op == "+") {
         display.textContent = add(firstNum,secondNum);
+        displayValue = add(firstNum,secondNum);
         numberOne = add(firstNum,secondNum);
     }
-    if(operator == "*") {
+    if(op == "*") {
         display.textContent = multiply(firstNum,secondNum);
+        displayValue = multiply(firstNum,secondNum);
         numberOne = multiply(firstNum,secondNum);
     }
-    if(operator == "-") {
+    if(op == "-") {
         display.textContent = subtract(firstNum,secondNum);
+        displayValue = subtract(firstNum,secondNum);
         numberOne = subtract(firstNum,secondNum);
     }
-    if(operator == "/") {
+    if(op == "/") {
         display.textContent = divide(firstNum, secondNum);
+        displayValue = divide(firstNum, secondNum);
         numberOne = divide(firstNum, secondNum);
     }
     numberTwo = null;
@@ -42,6 +47,7 @@ function operate(firstNum, secondNum, operator) {
     displayReset = false;
     operator = "";
     dotClicked = false;
+    operatorJustClicked = false;
 }
 let display = document.getElementById("display");
 display.textContent = displayValue;
@@ -62,6 +68,7 @@ function onButtonClick() {
     buttonsArray.forEach((btn) => {
         btn.addEventListener("click", () => {
             let number = btn.id;
+            operatorJustClicked = false;
             if(displayValue === "0") {
                 displayValue = "";
             }
@@ -85,10 +92,11 @@ function onButtonClick() {
             }
         }); 
     });
-    operatorsArray.forEach((btn) => {
-        btn.addEventListener("click", () => {
-            let op = btn.id;
+    operatorsArray.forEach((botn) => {
+        botn.addEventListener("click", () => {
+            let op = botn.id;
             operator = op;
+            operatorJustClicked = true;
         });
     });
     equalButton.addEventListener("click", () => {
@@ -106,9 +114,10 @@ function onButtonClick() {
         displayReset = false;
         display.textContent = "0";
         dotClicked = false;
+        operatorJustClicked = false;
     });
     dotButton.addEventListener("click", () => {
-        if(!dotClicked) {
+        if(!displayValue.includes(".") && !dotClicked && !operatorJustClicked) {
             displayValue = displayValue + ".";
             display.textContent = displayValue;
             dotClicked = true;
