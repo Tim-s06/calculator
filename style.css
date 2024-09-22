@@ -5,13 +5,13 @@ button {
     font-size: 30px;
     border-radius: 10px;
 }
-.operators, .equals, .clear{
+.operators, .equals, .clear, .dot , .backspace{
     background-color: gray;
 }
 .container {
     display:flex;
     flex-wrap: wrap;
-    height:455px;
+    height:570px;
     width:375px;
     gap:5px;
     background-color: aliceblue;

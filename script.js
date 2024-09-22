@@ -4,6 +4,7 @@ let operator = "";
 let displayValue = "0";
 let equalsClicked = false;
 let displayReset = false;
+let dotClicked = false;
 function add(a,b) {
     return a+b;
 }
@@ -40,6 +41,7 @@ function operate(firstNum, secondNum, operator) {
     equalsClicked = false;
     displayReset = false;
     operator = "";
+    dotClicked = false;
 }
 let display = document.getElementById("display");
 display.textContent = displayValue;
@@ -52,6 +54,9 @@ let operatorsArray = Array.from(operators);
 
 let equalButton = document.getElementById("equals");
 let clearButton = document.getElementById("clear");
+
+let backButton = document.getElementById("backspace");
+let dotButton = document.getElementById("dot");
 
 function onButtonClick() {
     buttonsArray.forEach((btn) => {
@@ -72,6 +77,7 @@ function onButtonClick() {
                 if(!displayReset) {
                     displayValue = "";
                     displayReset = true;
+                    dotClicked = false;
                 } 
                 displayValue = displayValue + number;
                 display.textContent = displayValue;
@@ -99,6 +105,14 @@ function onButtonClick() {
         equalsClicked = false;
         displayReset = false;
         display.textContent = "0";
+        dotClicked = false;
+    });
+    dotButton.addEventListener("click", () => {
+        if(!dotClicked) {
+            displayValue = displayValue + ".";
+            display.textContent = displayValue;
+            dotClicked = true;
+        }
     });
 }
 onButtonClick();
